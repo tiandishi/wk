@@ -2879,6 +2879,7 @@ function Ace2Inner(){
 
   function doCreateDomLine(nonEmpty)
   {
+    top.console.log("BOOOOOOBLLLBIIESS"); // never gets here..
     if (browser.msie && (!nonEmpty))
     {
       var result = {
@@ -5247,6 +5248,22 @@ function Ace2Inner(){
         if (browser.mozilla) $(root).addClass("mozilla");
         if (browser.safari) $(root).addClass("safari");
         if (browser.msie) $(root).addClass("msie");
+
+        // Temporary bodge in listen for events on images -- CAKE
+        $.getScript("../static/js/jquery_ui.js");
+
+        $(root).on('mouseup', 'img', function(e){
+top.console.log("NEW WIDTH mouseup", e.target.width);
+
+          // disable content editable
+          // document.execCommand("enableObjectResizing", false, false);
+          // e.target.contentEditable = false;
+          // make it resizable
+//          $(e.target).resizable({ proxy: 'proxy', aspectRatio: 'preserve' });  // I fuck shit up in FF because I modify the DOM
+          top.console.log("All done");
+// ui-resizable-handle ui-resizable-e
+        });
+
         if (browser.msie)
         {
           // cache CSS background images
@@ -5258,6 +5275,7 @@ function Ace2Inner(){
           { /* throws an error in some IE 6 but not others! */
           }
         }
+
         setClassPresence(root, "authorColors", true);
         setClassPresence(root, "doesWrap", doesWrap);
 
@@ -5291,6 +5309,13 @@ function Ace2Inner(){
       isSetUp = true;
     });
   }
+
+/*
+  top.console.log("listening for click events");
+  $('#innerdocbody').on('hover', 'div', function(){
+    top.console.log("FUCKKK");
+  });
+*/
 
 }
 
